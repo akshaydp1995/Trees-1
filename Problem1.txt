@@ -1,0 +1,27 @@
+# Time Complexity : O(n) where n is number of nodes in the tree
+# Space Complexity : O(h) where h is the height of the tree
+
+# Did this code successfully run on Leetcode : Yes
+# Three line explanation of solution in Plain English: 
+# A recursive solution that visits the left nodes first, and as soon as it encounters a 
+# NULL node, assigns the current popped node to the "prev" variable and then moves to the next
+# variable, which is right. The BST property: prev node should always be < current node
+
+# Your code here along with comments explaining your approach
+
+class Solution:
+    def __init__(self):
+        self.prev = None
+        
+    def isValidBST(self, root: TreeNode) -> bool:
+        return self.inorder(root)
+    
+    def inorder(self, root):
+        if root is None:
+            return True
+        if not self.inorder(root.left):
+            return False
+        if self.prev is not None and self.prev.val >= root.val:
+            return False
+        self.prev = root
+        return self.inorder(root.right)
